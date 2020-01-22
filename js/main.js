@@ -39,9 +39,9 @@ let buildTable = () => {
   let table = document.getElementById('product-list');
 
   if (!table) {
-    document.body.innerHTML = `
+    document.body.innerHTML += `
     <table id="product-list">
-      <tr id="description-row">
+      <tr>
         <th>
           Название
         </th>
@@ -53,7 +53,7 @@ let buildTable = () => {
         <th>
           Отзывы
           <input type="submit" value="Top" onclick="sortByReviews()">
-          <input type="submit" value="Bottom" onclick="sortByPriceReverse()">
+          <input type="submit" value="Bottom" onclick="sortByReviewsReverse()">
         </th>
       </tr>
     </table>`;
@@ -71,12 +71,12 @@ let buildTable = () => {
       if (typeof objValues[j] === 'object') {
         let oldPrice = document.createElement('span');
         let newPrice = document.createElement('span');
-        let subObj = Object.values(objValues[j]);
+        let subArr = Object.values(objValues[j]);
 
         oldPrice.className = 'old-price';
         newPrice.className = 'new-price';
-        oldPrice.innerText = subObj[0];
-        newPrice.innerText = subObj[1];
+        oldPrice.innerText = subArr[0];
+        newPrice.innerText = subArr[1];
 
         td.append(newPrice);
         td.append(oldPrice);
@@ -93,14 +93,14 @@ let buildTable = () => {
   document.body.append(table);
 };
 
-function sortByReviews() {
+let sortByReviews = () => {
   document.getElementById('product-list').remove();
 
   products.sort(function(a, b){
-    let firstObj = a.ratingRevievs.split(' ');
-    let secondObj = b.ratingRevievs.split(' ');
+    let firstArr = a.ratingRevievs.split(' ');
+    let secondArr = b.ratingRevievs.split(' ');
 
-    if (+firstObj[0] > +secondObj[0]) {
+    if (+firstArr[0] > +secondArr[0]) {
       return -1;
     } else {
       return 1;
@@ -108,16 +108,16 @@ function sortByReviews() {
   });
 
   buildTable();
-}
+};
 
-function sortByReviewsReverse() {
+let sortByReviewsReverse = () => {
   document.getElementById('product-list').remove();
 
   products.sort(function(a, b){
-    let firstObj = a.ratingRevievs.split(' ');
-    let secondObj = b.ratingRevievs.split(' ');
+    let firstArr = a.ratingRevievs.split(' ');
+    let secondArr = b.ratingRevievs.split(' ');
 
-    if (+firstObj[0] > +secondObj[0]) {
+    if (+firstArr[0] > +secondArr[0]) {
       return 1;
     } else {
       return -1;
@@ -125,28 +125,28 @@ function sortByReviewsReverse() {
   });
 
   buildTable();
-}
+};
 
 function sortByPrice() {
   document.getElementById('product-list').remove();
 
   products.sort(function(a, b) {
-    let firstObj;
-    let secondObj;
+    let firstArr;
+    let secondArr;
 
     if (a.price.newUan) {
-      firstObj = a.price.newUan.split(/\s/);
+      firstArr = a.price.newUan.split(/\s/);
     } else {
-      firstObj = a.price.split(/\s/);
+      firstArr = a.price.split(/\s/);
     }
 
     if (b.price.newUan) {
-      secondObj = b.price.newUan.split(/\s/);
+      secondArr = b.price.newUan.split(/\s/);
     } else {
-      secondObj = b.price.split(/\s/);
+      secondArr = b.price.split(/\s/);
     }
 
-    if (+(firstObj[0] + firstObj[1]) > +(secondObj[0] + secondObj[1])) {
+    if (+(firstArr[0] + firstArr[1]) > +(secondArr[0] + secondArr[1])) {
       return -1;
     } else {
       return 1;
@@ -156,26 +156,26 @@ function sortByPrice() {
   buildTable();
 }
 
-function sortByPriceReverse() {
+let sortByPriceReverse = () => {
   document.getElementById('product-list').remove();
 
   products.sort(function(a, b) {
-    let firstObj;
-    let secondObj;
+    let firstArr;
+    let secondArr;
 
     if (a.price.newUan) {
-      firstObj = a.price.newUan.split(/\s/);
+      firstArr = a.price.newUan.split(/\s/);
     } else {
-      firstObj = a.price.split(/\s/);
+      firstArr = a.price.split(/\s/);
     }
 
     if (b.price.newUan) {
-      secondObj = b.price.newUan.split(/\s/);
+      secondArr = b.price.newUan.split(/\s/);
     } else {
-      secondObj = b.price.split(/\s/);
+      secondArr = b.price.split(/\s/);
     }
 
-    if (+(firstObj[0] + firstObj[1]) > +(secondObj[0] + secondObj[1])) {
+    if (+(firstArr[0] + firstArr[1]) > +(secondArr[0] + secondArr[1])) {
       return 1;
     } else {
       return -1;
@@ -183,6 +183,6 @@ function sortByPriceReverse() {
   });
 
   buildTable();
-}
+};
 
 buildTable();
