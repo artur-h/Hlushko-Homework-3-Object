@@ -9,6 +9,24 @@
 </head>
 <body>
 
+  <table id="product-list">
+    <tr id="description-row">
+      <th>
+        Название
+      </th>
+      <th>
+        Цена
+        <input type="submit" value="Top" onclick="sortByPrice()">
+        <input type="submit" value="Bottom" onclick="sortByPriceReverse()">
+      </th>
+      <th>
+        Отзывы
+        <input type="submit" value="Top" onclick="sortByReviews()">
+        <input type="submit" value="Bottom" onclick="sortByPriceReverse()">
+      </th>
+    </tr>
+  </table>
+
   <script src="js/main.js"></script>
 </body>
 </html>

@@ -1,12 +1,21 @@
-table {
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#product-list {
+  margin: 0 auto;
   border: 1px solid #000;
   border-collapse: collapse;
 }
 
-td {
+td, th {
   padding: 10px;
   height: 30px;
   border: 1px solid #000;
+}
+
+th {
+  font-size: 20px;
 }
 
 .new-price {
@@ -14,5 +23,9 @@ td {
 }
 
 .old-price {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 14px;
   font-style: italic;
+  text-decoration: line-through;
 }

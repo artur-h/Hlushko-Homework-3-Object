@@ -35,15 +35,38 @@ let products = [
   {ratingRevievs: "18 отзывов", price: {oldUan: "5 999 грн", newUan: "4 999 грн"}, name: "Sony Xperia L1 Dual Black"}
 ];
 
-let buildTable = (array) => {
-  let table = document.createElement('table');
+let buildTable = () => {
+  let table = document.getElementById('product-list');
 
-  for (let i = 0; i < array.length; i++) {
+  if (!table) {
+    document.body.innerHTML = `
+    <table id="product-list">
+      <tr id="description-row">
+        <th>
+          Название
+        </th>
+        <th>
+          Цена
+          <input type="submit" value="Top" onclick="sortByPrice()">
+          <input type="submit" value="Bottom" onclick="sortByPriceReverse()">
+        </th>
+        <th>
+          Отзывы
+          <input type="submit" value="Top" onclick="sortByReviews()">
+          <input type="submit" value="Bottom" onclick="sortByPriceReverse()">
+        </th>
+      </tr>
+    </table>`;
+
+    table = document.getElementById('product-list');
+  }
+
+  for (let i = 0; i < products.length; i++) {
     let tr = document.createElement('tr');
 
-    for (let j = 0; j < Object.values(array[i]).length; j++) {
+    for (let j = 0; j < Object.values(products[i]).length; j++) {
       let td = document.createElement('td');
-      let objValues = Object.values(array[i]);
+      let objValues = Object.values(products[i]);
 
       if (typeof objValues[j] === 'object') {
         let oldPrice = document.createElement('span');
@@ -61,7 +84,7 @@ let buildTable = (array) => {
         td.innerText = objValues[j];
       }
 
-      tr.append(td);
+      tr.prepend(td);
     }
 
     table.append(tr);
@@ -70,8 +93,10 @@ let buildTable = (array) => {
   document.body.append(table);
 };
 
-function sortByReviews(array) {
-  array.sort(function(a, b){
+function sortByReviews() {
+  document.getElementById('product-list').remove();
+
+  products.sort(function(a, b){
     let firstObj = a.ratingRevievs.split(' ');
     let secondObj = b.ratingRevievs.split(' ');
 
@@ -81,10 +106,14 @@ function sortByReviews(array) {
       return 1;
     }
   });
+
+  buildTable();
 }
 
-function sortByReviewsReverse(array) {
-  array.sort(function(a, b){
+function sortByReviewsReverse() {
+  document.getElementById('product-list').remove();
+
+  products.sort(function(a, b){
     let firstObj = a.ratingRevievs.split(' ');
     let secondObj = b.ratingRevievs.split(' ');
 
@@ -94,10 +123,14 @@ function sortByReviewsReverse(array) {
       return -1;
     }
   });
+
+  buildTable();
 }
 
-function sortByPrice(array) {
-  array.sort(function(a, b) {
+function sortByPrice() {
+  document.getElementById('product-list').remove();
+
+  products.sort(function(a, b) {
     let firstObj;
     let secondObj;
 
@@ -119,10 +152,14 @@ function sortByPrice(array) {
       return 1;
     }
   });
+
+  buildTable();
 }
 
-function sortByPriceReverse(array) {
-  array.sort(function(a, b) {
+function sortByPriceReverse() {
+  document.getElementById('product-list').remove();
+
+  products.sort(function(a, b) {
     let firstObj;
     let secondObj;
 
@@ -144,7 +181,8 @@ function sortByPriceReverse(array) {
       return -1;
     }
   });
+
+  buildTable();
 }
 
-sortByPriceReverse(products);
-buildTable(products);
+buildTable();
