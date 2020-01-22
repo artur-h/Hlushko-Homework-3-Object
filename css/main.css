@@ -1,0 +1,18 @@
+table {
+  border: 1px solid #000;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 10px;
+  height: 30px;
+  border: 1px solid #000;
+}
+
+.new-price {
+  font-weight: bold;
+}
+
+.old-price {
+  font-style: italic;
+}
