@@ -35,7 +35,7 @@ let products = [
   {ratingRevievs: "18 отзывов", price: {oldUan: "5 999 грн", newUan: "4 999 грн"}, name: "Sony Xperia L1 Dual Black"}
 ];
 
-let buildTable = () => {
+function buildTable() {
   let table = document.getElementById('product-list');
 
   if (!table) {
@@ -47,13 +47,13 @@ let buildTable = () => {
         </th>
         <th>
           Цена
-          <input type="submit" value="Top" onclick="sortByPrice()">
-          <input type="submit" value="Bottom" onclick="sortByPriceReverse()">
+          <input type="submit" value="Top" onclick="sortByPrice(this)">
+          <input type="submit" value="Bottom" onclick="sortByPrice(this)">
         </th>
         <th>
           Отзывы
-          <input type="submit" value="Top" onclick="sortByReviews()">
-          <input type="submit" value="Bottom" onclick="sortByReviewsReverse()">
+          <input type="submit" value="Top" onclick="sortByReviews(this)">
+          <input type="submit" value="Bottom" onclick="sortByReviews(this)">
         </th>
       </tr>
     </table>`;
@@ -91,72 +91,40 @@ let buildTable = () => {
   }
 
   document.body.append(table);
-};
+}
 
-let sortByReviews = () => {
+function sortByReviews(elem) {
+  let sortValue = elem.value;
+
   document.getElementById('product-list').remove();
 
   products.sort(function(a, b){
     let firstArr = a.ratingRevievs.split(' ');
     let secondArr = b.ratingRevievs.split(' ');
 
-    if (+firstArr[0] > +secondArr[0]) {
-      return -1;
-    } else {
-      return 1;
-    }
-  });
+    if (sortValue === 'Top') {
 
-  buildTable();
-};
+      if (+firstArr[0] > +secondArr[0]) {
+        return -1;
+      } else {
+        return 1;
+      }
+    } else if (sortValue === 'Bottom') {
 
-let sortByReviewsReverse = () => {
-  document.getElementById('product-list').remove();
-
-  products.sort(function(a, b){
-    let firstArr = a.ratingRevievs.split(' ');
-    let secondArr = b.ratingRevievs.split(' ');
-
-    if (+firstArr[0] > +secondArr[0]) {
-      return 1;
-    } else {
-      return -1;
-    }
-  });
-
-  buildTable();
-};
-
-function sortByPrice() {
-  document.getElementById('product-list').remove();
-
-  products.sort(function(a, b) {
-    let firstArr;
-    let secondArr;
-
-    if (a.price.newUan) {
-      firstArr = a.price.newUan.split(/\s/);
-    } else {
-      firstArr = a.price.split(/\s/);
-    }
-
-    if (b.price.newUan) {
-      secondArr = b.price.newUan.split(/\s/);
-    } else {
-      secondArr = b.price.split(/\s/);
-    }
-
-    if (+(firstArr[0] + firstArr[1]) > +(secondArr[0] + secondArr[1])) {
-      return -1;
-    } else {
-      return 1;
+      if (+firstArr[0] > +secondArr[0]) {
+        return 1;
+      } else {
+        return -1;
+      }
     }
   });
 
   buildTable();
 }
 
-let sortByPriceReverse = () => {
+function sortByPrice(elem) {
+  let sortValue = elem.value;
+
   document.getElementById('product-list').remove();
 
   products.sort(function(a, b) {
@@ -175,14 +143,24 @@ let sortByPriceReverse = () => {
       secondArr = b.price.split(/\s/);
     }
 
-    if (+(firstArr[0] + firstArr[1]) > +(secondArr[0] + secondArr[1])) {
-      return 1;
-    } else {
-      return -1;
+    if (sortValue === 'Top') {
+
+      if (+(firstArr[0] + firstArr[1]) > +(secondArr[0] + secondArr[1])) {
+        return -1;
+      } else {
+        return 1;
+      }
+    } else if (sortValue === 'Bottom') {
+
+      if (+(firstArr[0] + firstArr[1]) > +(secondArr[0] + secondArr[1])) {
+        return 1;
+      } else {
+        return -1;
+      }
     }
   });
 
   buildTable();
-};
+}
 
 buildTable();
